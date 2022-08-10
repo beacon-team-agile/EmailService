@@ -1,0 +1,2 @@
+# EmailService
+Email service application
