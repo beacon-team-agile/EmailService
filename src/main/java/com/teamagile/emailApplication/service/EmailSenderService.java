@@ -17,30 +17,42 @@ public class EmailSenderService {
     @Autowired
     private JavaMailSender emailSender;
     
-    final String DEFAULT_FROM_EMAIL = "noreply@service.net";
+    final String DEFAULT_FROM_EMAIL = "alantsousmtp@outlook.com";
     final String DEFAULT_TO_DOMAIN = "localhost:8085/login?token=";
     
     public ResponseStatus sendRegTokenMail(String token, String email){
     	try {
-	        MimeMessage mi = emailSender.createMimeMessage();
-	        MimeMessageHelper mime_helper = new MimeMessageHelper(mi, "utf-8");
-	        mime_helper.setFrom(DEFAULT_FROM_EMAIL);
-	        mime_helper.setSubject("Registeration Link"); 
-	        mime_helper.setTo(email);
-	        
-	        StringBuilder mimeBody = new StringBuilder();
-	        mimeBody.append("<h3> Your registeration had been approved <h3><br>");
-	        mimeBody.append("<a href=/");
-	        mimeBody.append(DEFAULT_TO_DOMAIN);
-	        mimeBody.append(token);
-	        mimeBody.append(">Create an account with the following link</a>");
-	        
-	        mime_helper.setText(mimeBody.toString(), true);
-	        emailSender.send(mi);
-	        
+            SimpleMailMessage m = new SimpleMailMessage(); 
+            m.setFrom(DEFAULT_FROM_EMAIL);
+            m.setTo(email); 
+            m.setSubject("Your Registration"); 
+        	
+            String newLine = System.getProperty("line.separator");
+            StringBuilder emailBody = new StringBuilder();
+            emailBody.append("Use the following link to register an account:");
+            emailBody.append(newLine);
+            emailBody.append(DEFAULT_TO_DOMAIN);
+            emailBody.append(token);
+//	        MimeMessage mi = emailSender.createMimeMessage();
+//	        MimeMessageHelper mime_helper = new MimeMessageHelper(mi, "utf-8");
+//	        mime_helper.setFrom(DEFAULT_FROM_EMAIL);
+//	        mime_helper.setSubject("Registeration Link"); 
+//	        mime_helper.setTo(email);
+//	        
+//	        StringBuilder mimeBody = new StringBuilder();
+//	        mimeBody.append("<h3> Your registeration had been approved <h3><br>");
+//	        mimeBody.append("<a href=/");
+//	        mimeBody.append(DEFAULT_TO_DOMAIN);
+//	        mimeBody.append(token);
+//	        mimeBody.append(">Create an account with the following link</a>");
+//	        
+//	        mime_helper.setText(mimeBody.toString(), true);
+//	        emailSender.send(mi);
+            m.setText(emailBody.toString());
+            emailSender.send(m);	
 	        return ResponseStatus.builder().message("email sent successfully").success(true).build();
-    	}catch(MessagingException ms) {
-	        return ResponseStatus.builder().message("MessagingException thrown, email not sent").success(false).build();
+//    	}catch(MessagingException ms) {
+//	        return ResponseStatus.builder().message("MessagingException thrown, email not sent").success(false).build();
     	}catch(Exception etc_exc) {
 	        return ResponseStatus.builder().message(etc_exc.getMessage()).success(false).build();
     	}      
