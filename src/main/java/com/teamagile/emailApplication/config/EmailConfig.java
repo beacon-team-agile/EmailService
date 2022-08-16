@@ -9,14 +9,19 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 
 @Configuration
 public class EmailConfig {
+	
+	private final String EMAIL_HOST = "smtp-mail.outlook.com";
+	private final String EMAIL_USERNAME = "alantsousmtp@outlook.com";
+	private final String EMAIL_PASSWORD = "SMTPAndGarbage";
+	
 	@Bean
 	public JavaMailSender getJavaMailSender() {
 	    JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
-	    mailSender.setHost("smtp-mail.outlook.com");
+	    mailSender.setHost(EMAIL_HOST);
 	    mailSender.setPort(587);
 	    
-	    mailSender.setUsername("alantsousmtp@outlook.com");
-	    mailSender.setPassword("SMTPAndGarbage");
+	    mailSender.setUsername(EMAIL_USERNAME);
+	    mailSender.setPassword(EMAIL_PASSWORD);
 	    
 	    Properties props = mailSender.getJavaMailProperties();
 	    props.put("mail.transport.protocol", "smtp");
