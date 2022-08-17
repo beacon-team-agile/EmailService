@@ -18,7 +18,7 @@ public class EmailSenderService {
     private JavaMailSender emailSender;
     
     final String DEFAULT_FROM_EMAIL = "alantsousmtp@outlook.com";
-    final String DEFAULT_TO_DOMAIN = "http://localhost:9000/authentication-service/credential/register?";
+    final String DEFAULT_TO_DOMAIN = "http://localhost:9000/authentication-service/credential/register?token=";
     
     public ResponseStatus sendRegTokenMail(String token, String email){
     	try {
