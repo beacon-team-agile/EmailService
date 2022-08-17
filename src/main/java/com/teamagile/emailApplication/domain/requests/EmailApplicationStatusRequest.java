@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Builder
-public class EmailApplStatusRequest {
+public class EmailApplicationStatusRequest {
 	String email;
 	Boolean approved;
 	String comment;

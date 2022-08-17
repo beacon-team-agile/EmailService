@@ -59,7 +59,7 @@ public class EmailSenderService {
     }
     
     
-    public ResponseStatus sendApplStatusMail(String email, Boolean status, String comment){
+    public ResponseStatus sendApplicationStatusMail(String email, Boolean status, String comment){
     	try {
             SimpleMailMessage m = new SimpleMailMessage(); 
             
